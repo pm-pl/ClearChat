@@ -9,4 +9,4 @@ ClearChat can clear the chat automatically or by command this can all be set in 
 **clearchat.bypass** => Permission to bypass a clearchat
 
 # Credits
-icon form: https://flaticon.com
+icon from: https://flaticon.com
