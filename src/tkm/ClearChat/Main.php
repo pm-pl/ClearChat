@@ -14,45 +14,43 @@ use pocketmine\utils\SingletonTrait;
 class Main extends PluginBase implements Listener {
     use SingletonTrait;
 
-    public static Config $config;
-    public static array $messages;
+    public array $messages;
 
     protected function onEnable(): void
     {
         self::setInstance($this);
-        self::saveResource("config.yml");
-        self::$config = self::getConfig();
-        self::$messages = array();
-        if(self::$config->get("autocleartype") === "auto"){
+        self::saveDefaultConfig();
+        $this->messages = array();
+        if(self::getConfig()->get("autocleartype") === "auto"){
             self::getScheduler()->scheduleDelayedRepeatingTask(new ClosureTask(function ():void{
-                self::clear(true);
-            }), self::$config->get("autocleardelay")*1200, self::$config->get("autocleardelay")*1200);
+                $this->clear(true);
+            }), self::getConfig()->get("autocleardelay")*1200, self::getConfig()->get("autocleardelay")*1200);
         }
         Server::getInstance()->getPluginManager()->registerEvents(self::getInstance(), self::getInstance());
         Server::getInstance()->getCommandMap()->register(self::getName(), new ClearChatCommand());
     }
 
     public function onChat(PlayerChatEvent $event){
-        if(self::$config->get("autocleartype") === "messages"){
-            if(count(self::$messages) === self::$config->get("autoclearcount")){
-                self::$messages = [];
-                self::clear(true);
+        if(self::getConfig()->get("autocleartype") === "messages"){
+            if(count($this->messages) === self::getConfig()->get("autoclearcount")){
+                $this->messages = [];
+                $this->clear(true);
             }else{
-                self::$messages[] = $event->getMessage();
+                $this->messages[] = $event->getMessage();
             }
         }
     }
 
-    public static function clear(bool $auto = false, Player $player = null){
-        foreach (Server::getInstance()->getOnlinePlayers() as $player){
-            if(!$player->hasPermission("clearchat.bypass")){
-                $player->sendMessage(str_repeat("\n", 255));
+    public function clear(bool $auto = false, Player $player = null){
+        foreach (Server::getInstance()->getOnlinePlayers() as $oplayer){
+            if(!$oplayer->hasPermission("clearchat.bypass")){
+                $oplayer->sendMessage(str_repeat("\n", 255));
             }
         }
         if(!$auto and !is_null($player)){
-            Server::getInstance()->broadcastMessage(str_replace("{player}", $player->getName(), self::$config->get("player.cleared")));
+            Server::getInstance()->broadcastMessage(str_replace("{player}", $player->getName(), self::getInstance()->getConfig()->get("player.cleared")));
         }else{
-            Server::getInstance()->broadcastMessage(self::$config->get("auto.cleared"));
+            Server::getInstance()->broadcastMessage(self::getInstance()->getConfig()->get("auto.cleared"));
         }
     }
 

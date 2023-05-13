@@ -13,16 +13,21 @@ class ClearChatCommand extends Command implements PluginOwned {
 
     public function __construct()
     {
-        parent::__construct("clearchat", Main::$config->get("description"), "", Main::$config->get("aliases", []));
+        parent::__construct("clearchat", Main::getInstance()->getConfig()->get("description"), "", Main::getInstance()->getConfig()->get("aliases", []));
         $this->setPermission("clearchat.cmd");
-        $this->setPermissionMessage(Main::$config->get("no.perm"));
+        $this->setPermissionMessage(Main::getInstance()->getConfig()->get("no.perm"));
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if(!$sender instanceof Player)return false;
         if(!$this->testPermission($sender))return false;
-        Main::clear(false, $sender);
+        $this->getOwningPlugin()->clear(false, $sender);
+    }
+
+    public function getOwningPlugin(): Plugin
+    {
+        return Main::getInstance();
     }
 
     public function getOwningPlugin(): Plugin
