@@ -6,8 +6,10 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\lang\Translatable;
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
 
-class ClearChatCommand extends Command{
+class ClearChatCommand extends Command implements PluginOwned {
 
     public function __construct()
     {
@@ -21,5 +23,10 @@ class ClearChatCommand extends Command{
         if(!$sender instanceof Player)return false;
         if(!$this->testPermission($sender))return false;
         Main::clear(false, $sender);
+    }
+
+    public function getOwningPlugin(): Plugin
+    {
+        return Main::getInstance();
     }
 }
