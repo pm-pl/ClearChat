@@ -1,4 +1,6 @@
-# ClearChat
+# ClearChat [![](https://poggit.pmmp.io/shield.state/ClearChat)](https://poggit.pmmp.io/p/ClearChat)
+
+<a href="https://poggit.pmmp.io/p/ClearChat"><img src="https://poggit.pmmp.io/shield.state/ClearChat"></a>
 ClearChat is a Pocketmine-MP plugin that allows admins to clear the chat
 
 # Functions
