@@ -30,8 +30,4 @@ class ClearChatCommand extends Command implements PluginOwned {
         return Main::getInstance();
     }
 
-    public function getOwningPlugin(): Plugin
-    {
-        return Main::getInstance();
-    }
 }
