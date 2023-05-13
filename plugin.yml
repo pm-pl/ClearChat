@@ -1,0 +1,11 @@
+name: ClearChat
+author: TheKuhlMc
+api: 4.0.0
+version: 1.0.0
+main: tkm\ClearChat\Main
+
+permissions:
+  clearchat.cmd:
+    default: op
+  clearchat.bypass:
+    default: op

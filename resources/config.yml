@@ -1,0 +1,16 @@
+#auto clear settings
+#auto clear type(auto, messages)
+autocleartype: auto
+#autoclear auto(in minutes)
+autocleardelay: 5
+#autoclear messages
+autoclearcount: 100
+
+#messages
+no.perm: "§cYou dont have Permission to use this command"
+auto.cleared: "§athe chat was automatically cleared"
+player.cleared: "§aThe chat was cleared by §e{player}"
+
+#command
+description: "Clear the chat"
+aliases: ["cc"]
