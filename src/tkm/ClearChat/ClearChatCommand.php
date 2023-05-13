@@ -25,7 +25,7 @@ class ClearChatCommand extends Command implements PluginOwned {
         $this->getOwningPlugin()->clear(false, $sender);
     }
 
-    public function getOwningPlugin(): Plugin
+    public function getOwningPlugin(): Main
     {
         return Main::getInstance();
     }
